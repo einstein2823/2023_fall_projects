@@ -48,8 +48,7 @@ public class RobotContainer {
         .onTrue(new HoodJoystickCommand(m_hoodSubsystem, m_driverController));
 
     JoystickButton button = new JoystickButton(m_driverController, 0);
-    button.whileTrue(new HoodJoystickCommand(m_hoodSubsystem, m_driverController));
-    new HoodJoystickCommand(m_hoodSubsystem, m_driverController);
+    m_hoodSubsystem.setDefaultCommand(new HoodJoystickCommand(m_hoodSubsystem,  m_driverController));
   }
 
   /**

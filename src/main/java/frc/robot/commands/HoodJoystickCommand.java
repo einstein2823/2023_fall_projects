@@ -34,11 +34,24 @@ public class HoodJoystickCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (m_hoodsubsystem.toohigh()) {
+      if (m_joystick.getRawAxis(5) <= 0) {
+        m_hoodsubsystem.drive(Math.pow(m_joystick.getRawAxis(5), 3));
+      }
+    } else if (m_hoodsubsystem.toolow()) {
+      if (m_joystick.getRawAxis(5) >= 0) {
+        m_hoodsubsystem.drive(Math.pow(m_joystick.getRawAxis(5), 3));
+      }
+    } else {
+      m_hoodsubsystem.drive(Math.pow(m_joystick.getRawAxis(5), 3));
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_hoodsubsystem.drive(0.0);
+
   }
 
   // Returns true when the command should end.

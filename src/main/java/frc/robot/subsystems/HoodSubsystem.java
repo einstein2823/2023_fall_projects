@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
   TalonSRX motor = new TalonSRX(23);
@@ -45,7 +46,24 @@ public class HoodSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    motor.getSelectedSensorPosition();
     // This method will be called once per scheduler run
+  }
+
+  public boolean toohigh() {
+    if (Constants.hoodmin >= motor.getSelectedSensorPosition()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean toolow() {
+    if (Constants.hoodmax <= motor.getSelectedSensorPosition()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public void drive(double speed) {
