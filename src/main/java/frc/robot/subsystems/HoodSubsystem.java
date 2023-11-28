@@ -4,12 +4,20 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ExampleSubsystem extends SubsystemBase {
+public class HoodSubsystem extends SubsystemBase {
+  TalonSRX motor = new TalonSRX(23);
+  Joystick exampleJoystick = new Joystick(0);
+
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+  public HoodSubsystem() {
+  }
 
   /**
    * Example command factory method.
@@ -38,6 +46,10 @@ public class ExampleSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void drive(double speed) {
+    motor.set(ControlMode.PercentOutput, speed);
   }
 
   @Override
