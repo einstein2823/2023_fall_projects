@@ -6,22 +6,30 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.Constants;
 import frc.robot.Constants.OperatorConstants;
 
 public class TurretSubsystem extends SubsystemBase {
 
 	public final TalonSRX motor = new TalonSRX(23);
 
-	final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
-	public JoystickButton button0 = new JoystickButton(m_driverController, 0);
-	public JoystickButton button1 = new JoystickButton(m_driverController, 1);
+	final CommandJoystick m_driverController = new CommandJoystick(OperatorConstants.kDriverControllerPort);
+
+	NetworkTable table = NetworkTableInstance.getDefault().getTable("TurretSubsystem");
+
+	public double kTurretSpeed = Constants.kTurretSpeed;
+	
+	
 
 	/** Creates a new TurretSubsystem. */
 	public TurretSubsystem() {
+		table.putValue("TurretSpeed", NetworkTableValue.makeDouble(kTurretSpeed));
 	}
 
 	/**
@@ -51,7 +59,10 @@ public class TurretSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		
 		// This method will be called once per scheduler run
+		
+		kTurretSpeed = table.getEntry("motorSpeed").getDouble(0.0);
 	}
 
 	@Override

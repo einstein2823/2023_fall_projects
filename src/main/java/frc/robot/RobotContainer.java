@@ -8,10 +8,9 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TurretCommand;
 import frc.robot.subsystems.TurretSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -28,7 +27,7 @@ public class RobotContainer {
   private final TurretSubsystem m_turretSubsystem = new TurretSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
+  private final CommandJoystick m_driverController = new CommandJoystick(OperatorConstants.kDriverControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -54,12 +53,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    
+    m_driverController.pov(90).whileTrue(new TurretCommand(m_turretSubsystem, 1));
 
-    JoystickButton button0 = new JoystickButton(m_driverController, 0);
-    button0.whileTrue(new TurretCommand(m_turretSubsystem, 1));
-
-    JoystickButton button1 = new JoystickButton(m_driverController, 1);
-    button1.whileTrue(new TurretCommand(m_turretSubsystem, -1));
+    m_driverController.pov(270).whileTrue(new TurretCommand(m_turretSubsystem, -1));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
