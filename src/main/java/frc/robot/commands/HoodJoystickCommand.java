@@ -8,21 +8,22 @@ import frc.robot.subsystems.HoodSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 
 /** An example command that uses an example subsystem. */
 public class HoodJoystickCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final HoodSubsystem m_hoodsubsystem;
-  private final Joystick m_joystick;
+  private final CommandJoystick m_joystick;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public HoodJoystickCommand(HoodSubsystem hoodsubsystem, Joystick joystick) {
+  public HoodJoystickCommand(HoodSubsystem hoodsubsystem, CommandJoystick m_driverController) {
     m_hoodsubsystem = hoodsubsystem;
-    m_joystick = joystick;
+    m_joystick = m_driverController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(hoodsubsystem);
   }

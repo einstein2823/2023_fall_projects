@@ -9,10 +9,11 @@ import frc.robot.subsystems.HoodSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-  public static CommandBase exampleAuto(HoodSubsystem subsystem, Joystick joystick) {
+  public static CommandBase exampleAuto(HoodSubsystem subsystem, CommandJoystick joystick) {
     return Commands.sequence(subsystem.exampleMethodCommand(), new HoodJoystickCommand(subsystem, joystick));
   }
 
