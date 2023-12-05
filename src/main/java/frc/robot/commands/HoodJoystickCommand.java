@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.HoodSubsystem;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -37,10 +38,14 @@ public class HoodJoystickCommand extends CommandBase {
     if (m_hoodsubsystem.toohigh()) {
       if (m_joystick.getRawAxis(5) <= 0) {
         m_hoodsubsystem.drive(Math.pow(m_joystick.getRawAxis(5), 3));
+      } else if (m_joystick.getRawAxis(5) >= 0) {
+        m_hoodsubsystem.drive(0.0);
       }
     } else if (m_hoodsubsystem.toolow()) {
       if (m_joystick.getRawAxis(5) >= 0) {
         m_hoodsubsystem.drive(Math.pow(m_joystick.getRawAxis(5), 3));
+      } else if (m_joystick.getRawAxis(5) <= 0) {
+        m_hoodsubsystem.drive(0.0);
       }
     } else {
       m_hoodsubsystem.drive(Math.pow(m_joystick.getRawAxis(5), 3));

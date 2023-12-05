@@ -7,14 +7,19 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
-  TalonSRX motor = new TalonSRX(23);
+  public TalonSRX motor = new TalonSRX(23);
   Joystick exampleJoystick = new Joystick(0);
+  public double hoodmax = Constants.hoodmax;
+  public double hoodmin = Constants.hoodmin;
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("HoodJoystickCommand");
 
   /** Creates a new ExampleSubsystem. */
   public HoodSubsystem() {
@@ -47,19 +52,21 @@ public class HoodSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     motor.getSelectedSensorPosition();
+    hoodmax = table.getEntry("hood max").getDouble(Constants.hoodmax);
+    hoodmin = table.getEntry("hood min").getDouble(Constants.hoodmin);
     // This method will be called once per scheduler run
   }
 
-  public boolean toohigh() {
-    if (Constants.hoodmin >= motor.getSelectedSensorPosition()) {
+  public boolean toolow() {
+    if (hoodmin >= motor.getSelectedSensorPosition()) {
       return true;
     } else {
       return false;
     }
   }
 
-  public boolean toolow() {
-    if (Constants.hoodmax <= motor.getSelectedSensorPosition()) {
+  public boolean toohigh() {
+    if (hoodmax <= motor.getSelectedSensorPosition()) {
       return true;
     } else {
       return false;
