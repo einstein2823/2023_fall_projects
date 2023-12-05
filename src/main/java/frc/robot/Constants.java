@@ -17,6 +17,8 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static double kTurretSpeed = 0.4;
+
   public static double hoodmax = 0;
   public static double hoodmin = 0;
 }
